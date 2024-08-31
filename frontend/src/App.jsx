@@ -4,6 +4,7 @@ import { LoginPage } from './pages/LoginPage';
 import Abrigos from './pages/Shelter';
 import { ShelterProfile } from './pages/ShelterProfile/ShelterProfile';
 import { ShelteredForm } from './pages/ShelterProfile/ShelteredForm';
+import { VolunteerList } from './pages/ShelterProfile/VolunteerList';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/abrigos" element={<Abrigos />} />
           <Route path="/perfil-abrigo" element={<ShelterProfile />} />
           <Route path="/cadastro-abrigados" element={<ShelteredForm />} />
+          <Route path="/banco-de-voluntarios" element={<VolunteerList />} />
         </Routes>
       </div>
     </Router>
