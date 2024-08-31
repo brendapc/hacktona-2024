@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	_ "github.com/lib/pq" // Importa o driver do Postgres para o package database/sql
+	_ "github.com/lib/pq"
 )
 
 const (
@@ -19,19 +19,16 @@ const (
 
 var psqlconn = fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
 
-// StartDB inicializa a conexão com o banco de dados e retorna um ponteiro para a instância *sql.DB
 func StartDB() *sql.DB {
 	db, err := sql.Open("postgres", psqlconn)
 	if err != nil {
 		log.Fatalf("Erro ao abrir a conexão com o banco de dados: %v", err)
 	}
 
-	// Configura o pool de conexões
-	db.SetMaxOpenConns(25)                 // Número máximo de conexões abertas
-	db.SetMaxIdleConns(25)                 // Número máximo de conexões ociosas
-	db.SetConnMaxLifetime(5 * time.Minute) // Tempo máximo de vida para uma conexão
+	db.SetMaxOpenConns(25)
+	db.SetMaxIdleConns(25)
+	db.SetConnMaxLifetime(5 * time.Minute)
 
-	// Testa a conexão
 	err = db.Ping()
 	if err != nil {
 		log.Fatalf("Erro ao conectar ao banco de dados: %v", err)
