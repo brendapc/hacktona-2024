@@ -13,7 +13,6 @@ const createCustomIcon = (color, myLocation) => {
   });
 };
 
-// Function to get latitude and longitude from an address using Nominatim
 const geocodeAddress = async (address) => {
   try {
     const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&addressdetails=1`);
