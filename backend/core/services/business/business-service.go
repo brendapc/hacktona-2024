@@ -16,6 +16,7 @@ type BusinessService struct {
 
 type BusinessServiceInterface interface {
 	CreateBusiness(ctx context.Context, business *models.Business) error
+	GetBusinesses(ctx context.Context) ([]*models.Business, error)
 }
 
 func NewService(db *sql.DB) BusinessService {
