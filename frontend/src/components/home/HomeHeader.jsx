@@ -5,9 +5,10 @@ import Dropdown from '../Dropdown';
 export const HomeHeader = () => {
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
-  const [selectedA11yOption, setSelectedA11yOption] = useState("Select an option");
-  const [selectedHelpOption, setSelectedHelpOption] = useState("Select an option");
-  const [selectedSpotsOption, setSelectedSpotsOption] = useState("Select an option");
+  const [selectedA11yOption, setSelectedA11yOption] = useState("tanto faz");
+  const [selectedHelpOption, setSelectedHelpOption] = useState("ajuda geral");
+  const [selectedSpotsOption, setSelectedSpotsOption] = useState("todos");
+  const [selectedCompaniesOption, setSelectedCompaniesOption] = useState(false);
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -43,7 +44,7 @@ export const HomeHeader = () => {
         </a>
       </div>
     </header>
-    <div className='flex items-center bg-white h-10' >
+    <div className='flex items-center bg-white min-h-16 overflow-x-scroll text-nowrap' >
       <div className='flex items-center mr-2'>
         <span> Acessibilidade: </span>
         <Dropdown 
@@ -66,6 +67,14 @@ export const HomeHeader = () => {
           options={["todos", "com vagas"]} 
           selectedOption={selectedSpotsOption} 
           setSelectedOption={setSelectedSpotsOption} 
+        />
+      </div>
+       <div className='flex items-center mr-2'>
+        <span> Ver empresas: </span>
+        <Dropdown 
+          options={[false, true]} 
+          selectedOption={selectedCompaniesOption} 
+          setSelectedOption={setSelectedCompaniesOption} 
         />
       </div>
     </div>
