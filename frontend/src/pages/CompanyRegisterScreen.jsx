@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ButtonComponent from "../components/ButtonComponent";
 import InputApp from "../components/input/input";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function CompanyRegister() {
     const [compName,SetCompName] = useState('')
@@ -9,6 +10,7 @@ export default function CompanyRegister() {
     const [phone,SetPhone] = useState('')
     const [email,SetEmail] = useState('')
     const [password,SetPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false);
     return (
         <div className="flex items-center justify-center min-h-screen bg-custom-gradient">
             <div className="w-5/6 flex-row p-16 space-y-14 bg-[#F5F9E9] rounded-2xl shadow-lg">
@@ -40,10 +42,17 @@ export default function CompanyRegister() {
                             <label>Email:</label>
                             <InputApp onChangeText={SetEmail}/>
                         </div>
-                        <div className="w-full mb-3 space-y-1">
+                        <div className="w-full mb-3 space-y-1 relative">
                             <label>Senha:</label>
                             <InputApp onChangeText={SetPassword}
-                            type="password"/>
+                            type={showPassword ? "text" : "password"}/>
+                            <button
+                                type="button"
+                                className="absolute right-4 bottom-1 transform -translate-y-1/2"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import InputApp from "../components/input/input";
 import ButtonComponent from "../components/ButtonComponent";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const RegisterVolunteer = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [errors, setErrors] = useState({}); // Estado para armazenar os erros
 
@@ -65,13 +67,20 @@ export const RegisterVolunteer = () => {
           </div>
 
           {/* Campo de Senha */}
-          <div className="w-full mb-4">
+          <div className="w-full mb-4 relative">
             <InputApp 
-              type="password" // Define o tipo como password para esconder o texto digitado
+              type={showPassword ? "text" : "password"} // Define o tipo como password para esconder o texto digitado
               placeHolder="Digite sua senha" 
               value={password} 
               onChangeText={setPassword} 
             />
+             <button
+              type="button"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2"
+              onClick={() => setShowPassword(!showPassword)} // Alterna o estado da visibilidade
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Ícones para mostrar/ocultar senha */}
+            </button>
             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
 
