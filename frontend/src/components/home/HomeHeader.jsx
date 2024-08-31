@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../Dropdown";
+import imagePath from "../../assets/image-removebg-preview.png"; 
+
 
 export const HomeHeader = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -20,9 +22,7 @@ export const HomeHeader = () => {
     <>
       <header className="flex justify-between items-center h-16 p-4 backdrop-blur-md bg-white/70 shadow-md w-full z-10">
         <div className="flex items-center">
-          <span className="rounded-full p-2 bg-blue-500 text-white shadow-md">
-            icon
-          </span>
+        <img src={imagePath} alt="Logo" className="h-16" /> {/* Corrigindo a tag para img */}
           <div className="relative">
             <input
               type="text"
@@ -58,7 +58,7 @@ export const HomeHeader = () => {
         <div className="flex items-center mr-2">
           <span> Acessibilidade: </span>
           <Dropdown
-            options={["tanto faz", "é acessivel"]}
+            options={["Não é acessivel", "é acessivel"]}
             selectedOption={selectedA11yOption}
             setSelectedOption={setSelectedA11yOption}
           />

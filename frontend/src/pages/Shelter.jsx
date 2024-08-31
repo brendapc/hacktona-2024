@@ -39,8 +39,8 @@ const Abrigos = () => {
 
   return (
     <div className='bg-custom-gradient h-screen w-screen overflow-scroll'>
-      <h1>Abrigos</h1>
-      <p>Query Parameter Value: {value}</p>
+      <h1 className='text-3xl font-bold ml-2 my-4 text-black'>Abrigos</h1>
+      
 
       {
         shelterData.filter(shelter =>
