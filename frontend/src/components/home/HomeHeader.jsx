@@ -8,7 +8,7 @@ export const HomeHeader = () => {
   const [selectedA11yOption, setSelectedA11yOption] = useState("tanto faz");
   const [selectedHelpOption, setSelectedHelpOption] = useState("ajuda geral");
   const [selectedSpotsOption, setSelectedSpotsOption] = useState("todos");
-  const [selectedCompaniesOption, setSelectedCompaniesOption] = useState(false);
+  const [selectedCompaniesOption, setSelectedCompaniesOption] = useState("não");
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -72,7 +72,7 @@ export const HomeHeader = () => {
        <div className='flex items-center mr-2'>
         <span> Ver empresas: </span>
         <Dropdown 
-          options={[false, true]} 
+          options={["não", "sim"]} 
           selectedOption={selectedCompaniesOption} 
           setSelectedOption={setSelectedCompaniesOption} 
         />
