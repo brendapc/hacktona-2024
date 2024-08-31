@@ -36,8 +36,26 @@ func (s *ShelterService) CreateShelter(ctx context.Context, shelter *models.Shel
 
 	err = shelter.Insert(ctx, s.db, boil.Infer())
 	if err != nil {
-		log.Printf("Erro ao inserir o shelter no banco de dados: %v", err)
+		log.Printf("Error inserting shelter into database: %v", err)
 		return err
 	}
 	return nil
+}
+
+func (s *ShelterService) GetShelters(ctx context.Context) ([]*models.Shelter, error) {
+	shelters, err := models.Shelters().All(ctx, s.db)
+	if err != nil {
+		log.Printf("Error fetching shelters from database: %v", err)
+		return nil, err
+	}
+	return shelters, nil
+}
+
+func (s *ShelterService) GetShelter(ctx context.Context, id int) (*models.Shelter, error) {
+	shelter, err := models.FindShelter(ctx, s.db, id)
+	if err != nil {
+		log.Printf("Error fetching shelter from database: %v", err)
+		return nil, err
+	}
+	return shelter, nil
 }
