@@ -6,7 +6,7 @@ import L from 'leaflet';
 // Function to create custom icons
 const createCustomIcon = (color) => {
   return new L.Icon({
-    iconUrl: `data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="black" stroke-width="2" fill="${color}" /></svg>`,
+    iconUrl: `data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3z" fill="${color}" stroke="black" stroke-width="2"/></svg>`,
     iconSize: [24, 24],
     iconAnchor: [12, 24],
     popupAnchor: [0, -24]
@@ -37,9 +37,9 @@ function MyMap() {
     const fetchAndGeocodeAddresses = async () => {
       // Simulated fetch from backend
       const addresses = [
-        { id: 1, name: 'Local 1', address: 'Av. Ipiranga, 7060 - Partenon, Porto Alegre', color: 'red' },
-        { id: 2, name: 'Local 2', address: 'Av. Ipiranga, 6681 - Partenon, Porto Alegre', color: 'blue' },
-        { id: 3, name: 'Local 3', address: 'Praça da Matriz, Porto Alegre, Brazil', color: 'green' }
+        { id: 1, name: 'Local 1', address: 'Av. Ipiranga, 7060 - Partenon, Porto Alegre', color: 'yellow' },
+        { id: 2, name: 'Local 2', address: 'Av. Ipiranga, 6681 - Partenon, Porto Alegre', color: 'yellow' },
+        { id: 3, name: 'Local 3', address: 'Praça da Matriz, Porto Alegre, Brazil', color: 'yellow' }
       ];
 
       try {
