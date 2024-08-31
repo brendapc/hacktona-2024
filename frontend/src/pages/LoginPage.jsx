@@ -26,15 +26,15 @@ export const LoginPage = () => {
         </form>
 
         <div className="text-center">
-          <p className="text-sm text-gray-600">
-            Não possui conta?{' '}
-            <a
-              href="/register"
-              className="font-medium text-[#6060D4] hover:underline"
-            >
-              Cadastre-se
-            </a>
+          <p className="text-sm mb-2 text-gray-600">
+            Não possui conta?
           </p>
+          <a
+            href="/register"
+            className="text-sm font-medium text-[#6060D4] hover:underline"
+          >
+            Cadastre-se
+          </a>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { HomeHeader } from '../components/home/HomeHEader';
 
 const Home = () => {
   return (
-    <div className="relative bg-slate-200">
+    <div className="relative h-screen bg-custom-gradient">
       <HomeHeader />
       <main className="pt-20">
         <div className="container mx-auto px-4">
