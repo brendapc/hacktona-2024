@@ -1,5 +1,5 @@
 import MyMap from '../components/Map';
-import { HomeHeader } from '../components/home/HomeHEader';
+import { HomeHeader } from '../components/home/HomeHeader';
 
 const Home = () => {
   return (
