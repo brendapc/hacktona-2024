@@ -2,20 +2,21 @@ package api
 
 import (
 	"database/sql"
-	"fmt"
+	shelterController "hack/api/controllers/shelter"
+	"hack/core/services/shelter"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Setup(ginApp *gin.Engine, db *sql.DB) {
-	// Inicializa os serviços necessários
-	// Exemplo:
-	// userService := services.NewUserService(db)
+func Setup(router *gin.Engine, db *sql.DB) {
+	shelterService := shelter.NewService(db)
 
-	// Configura os controladores e suas respectivas rotas
-	// Exemplo:
-	// v1 := ginApp.Group("/api/v1")
-	// controllers.UserControllerHandler(userService, v1)
+	v1 := router.Group("/api/v1")
 
-	fmt.Println("API OK!")
+	shelterController.Handler(v1, shelterService)
+
+	router.GET("/ping", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, gin.H{"message": "pong"})
+	})
 }

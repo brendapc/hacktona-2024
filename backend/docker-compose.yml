@@ -3,7 +3,7 @@ version: "3.8"
 services:
   app:
     build:
-      context: .  # O contexto agora é o diretório atual
+      context: .  
     environment:
       - DB_HOST=db
       - DB_PORT=5432
