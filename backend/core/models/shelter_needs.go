@@ -162,8 +162,8 @@ type shelterNeedL struct{}
 
 var (
 	shelterNeedAllColumns            = []string{"id", "shelter_id", "bedding_item", "food_non_perishable", "food_perishable", "hygiene_products", "clothing_male", "clothing_female", "clothing_children", "medical_supplies", "pet_food_dogs", "pet_food_cats", "cleaning_supplies"}
-	shelterNeedColumnsWithoutDefault = []string{"shelter_id", "bedding_item", "food_non_perishable", "food_perishable", "hygiene_products", "clothing_male", "clothing_female", "clothing_children", "medical_supplies", "pet_food_dogs", "pet_food_cats", "cleaning_supplies"}
-	shelterNeedColumnsWithDefault    = []string{"id"}
+	shelterNeedColumnsWithoutDefault = []string{"shelter_id"}
+	shelterNeedColumnsWithDefault    = []string{"id", "bedding_item", "food_non_perishable", "food_perishable", "hygiene_products", "clothing_male", "clothing_female", "clothing_children", "medical_supplies", "pet_food_dogs", "pet_food_cats", "cleaning_supplies"}
 	shelterNeedPrimaryKeyColumns     = []string{"id"}
 	shelterNeedGeneratedColumns      = []string{}
 )

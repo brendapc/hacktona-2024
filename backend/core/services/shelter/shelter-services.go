@@ -42,6 +42,33 @@ func (s *ShelterService) CreateShelter(ctx context.Context, shelter *models.Shel
 	return nil
 }
 
+func (s *ShelterService) CreateShelterNeed(ctx context.Context, shelter *models.Shelter, shelterNeed *models.ShelterNeed) (*models.ShelterNeed, error) {
+	err := shelterNeed.Insert(ctx, s.db, boil.Infer())
+	if err != nil {
+		log.Printf("Error inserting shelter need into database: %v", err)
+		return nil, err
+	}
+	return shelterNeed, nil
+}
+
+func (s *ShelterService) FindShelterNeedByShelterID(ctx context.Context, shelterID int) (*models.ShelterNeed, error) {
+	shelterNeed, err := models.FindShelterNeed(ctx, s.db, shelterID)
+	if err != nil {
+		log.Printf("Error fetching shelter need from database: %v", err)
+		return nil, err
+	}
+	return shelterNeed, nil
+}
+
+func (s *ShelterService) UpdateShelterNeeds(ctx context.Context, shelterNeed *models.ShelterNeed) (*models.ShelterNeed, error) {
+	_, err := shelterNeed.Update(ctx, s.db, boil.Infer())
+	if err != nil {
+		log.Printf("Error updating shelter need: %v", err)
+		return nil, err
+	}
+	return shelterNeed, nil
+}
+
 func (s *ShelterService) GetShelters(ctx context.Context) ([]*models.Shelter, error) {
 	shelters, err := models.Shelters().All(ctx, s.db)
 	if err != nil {

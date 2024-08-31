@@ -16,6 +16,7 @@ type ShelterController struct {
 
 func (c *ShelterController) CreateShelter(ctx *gin.Context) {
 	var shelter models.Shelter
+	var shelterNeeds models.ShelterNeed
 
 	if err := ctx.BindJSON(&shelter); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -27,11 +28,44 @@ func (c *ShelterController) CreateShelter(ctx *gin.Context) {
 		return
 	}
 
+	shelterNeeds.ShelterID = shelter.ID
+
+	if _, err := c.shelterService.CreateShelterNeed(ctx, &shelter, &shelterNeeds); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
 	var shelterPresenter shelterModels.ShelterPresenter
 
 	shelterPresenter.InitFromModel(shelter)
 
 	ctx.JSON(http.StatusCreated, shelterPresenter)
+}
+
+func (c *ShelterController) UpdateShelterNeeds(ctx *gin.Context) {
+	shelterID := ctx.Request.Header.Get("shelter_id")
+	shelterIDInt, _ := strconv.Atoi(shelterID)
+
+	var shelterNeeds *models.ShelterNeed
+
+	shelterNeeds, err := c.shelterService.FindShelterNeedByShelterID(ctx, shelterIDInt)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := ctx.BindJSON(&shelterNeeds); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	shelterNeeds, err = c.shelterService.UpdateShelterNeeds(ctx, shelterNeeds)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusCreated, shelterNeeds)
 }
 
 func (c *ShelterController) GetShelters(ctx *gin.Context) {
@@ -134,6 +168,7 @@ func Handler(router *gin.RouterGroup, shelterService service.ShelterService) *Sh
 	router.GET("/shelters/:id", controller.GetShelter)
 	router.POST("/shelters/residents", controller.AddResident)
 	router.DELETE("/shelters/residents", controller.RemoveResident)
+	router.PUT("/shelters/needs", controller.UpdateShelterNeeds)
 
 	return controller
 }
