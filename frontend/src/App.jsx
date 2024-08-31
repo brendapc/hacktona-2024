@@ -1,11 +1,11 @@
 import './App.css'
-import MyMap from './components/Test'
+import Home from './pages/Home'
 
 function App() {
 
   return (
     <>
-     <MyMap />
+     <Home />
     </>
   )
 }
