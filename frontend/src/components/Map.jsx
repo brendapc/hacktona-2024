@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import axios from 'axios';
 
-// Function to create custom icons
 const createCustomIcon = (color, myLocation) => {
   return new L.Icon({
-    iconUrl: myLocation ? `data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="black" stroke-width="1" fill="${color}"/></svg>` :  `data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3z" fill="${color}" stroke="black" stroke-width="1"/></svg>`,
+    iconUrl: myLocation ? `data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="black" stroke-width="1" fill="${color}"/></svg>` : `data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3z" fill="${color}" stroke="black" stroke-width="1"/></svg>`,
     iconSize: [24, 24],
     iconAnchor: [12, 24],
     popupAnchor: [0, -24]
@@ -32,29 +32,27 @@ const geocodeAddress = async (address) => {
 function MyMap() {
   const [locations, setLocations] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
+  const [shelters, setShelters] = useState([]);
 
   useEffect(() => {
     const fetchAndGeocodeAddresses = async () => {
-      // Simulated fetch from backend
-      const addresses = [
-        { id: 1, name: 'Local 1', address: 'Av. Ipiranga, 7060 - Partenon, Porto Alegre', color: 'green' },
-        { id: 2, name: 'Local 2', address: 'Av. Ipiranga, 6681 - Partenon, Porto Alegre', color: 'green' },
-        { id: 3, name: 'Local 3', address: 'Praça da Matriz, Porto Alegre, Brazil', color: 'green' }
-      ];
-
-      const companies = [
-        { id: 1, name: 'Local 1', address: 'Av. Ipiranga, 5060 - Partenon, Porto Alegre', color: 'orange' },
-        { id: 2, name: 'Local 2', address: 'Av. Ipiranga, 6581 - Partenon, Porto Alegre', color: 'orange' },
-        { id: 3, name: 'Local 3', address: 'Av. Ipiranga, 5500 - Partenon, Porto Alegre', color: 'orange' }
-      ];
-
-      addresses.push(...companies);
-
+      const response = await axios.get("http://localhost:8080/api/v1/shelters");
+      const addresses = response.data.map((shelter) => ({ ...shelter, color: 'green' }));
+  
+  
+      setShelters([...addresses]);
+    };
+  
+    fetchAndGeocodeAddresses();
+  }, []);  // Executa apenas uma vez ao montar o componente
+  
+  useEffect(() => {
+    const geocodeShelters = async () => {
       try {
-        const locationPromises = addresses.map(async (loc) => {
+        const locationPromises = shelters.map(async (loc) => {
           const coords = await geocodeAddress(loc.address);
           if (coords) {
-            return { id: loc.id, name: loc.name, ...coords, color: loc.color };
+            return { id: loc.id, name: loc.name, address: loc.address, ...coords, color: loc.color };
           }
           return null;
         });
@@ -64,17 +62,12 @@ function MyMap() {
         console.error('Error fetching and geocoding addresses:', error);
       }
     };
-    fetchAndGeocodeAddresses();
-  }, []);
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        setUserLocation([latitude, longitude]);
-      });
+  
+    if (shelters.length > 0) {
+      geocodeShelters();
     }
-  }, []);
+  }, [shelters]);  // Executa toda vez que `shelters` for atualizado
+  
 
   return (
     <MapContainer center={userLocation || [-30.0586, -51.1756]} zoom={13} style={{ height: '80vh', width: '100%' }}>
