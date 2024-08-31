@@ -1,13 +1,20 @@
-import './App.css'
-import MyMap from './components/Test'
+import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
+import Home from './pages/Home';
+import { LoginPage } from './pages/LoginPage';
+import Abrigos from './pages/Shelter';
 
-function App() {
-
+const App = () => {
   return (
-    <>
-     <MyMap />
-    </>
-  )
-}
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" exact element={<Home/>} />
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/abrigos" element={<Abrigos />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+};
 
-export default App
+export default App;
