@@ -1,11 +1,14 @@
+import { useState } from "react";
 import InputApp from "../components/input/input"
 import ButtonComponent from "../components/ButtonComponent"
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function ShelterRegister() {
   const handleTextareaChange = (event) => {
     event.target.style.height = 'auto';
     event.target.style.height = event.target.scrollHeight + 'px';
   };
+  const [showPassword, setShowPassword] = useState(false);
   return (
       <div className="flex items-center justify-center min-h-screen bg-custom-gradient">
           <div className="w-5/6 flex-row p-16 space-y-14 bg-[#F5F9E9] rounded-2xl shadow-lg">
@@ -42,9 +45,16 @@ export default function ShelterRegister() {
                           <label>Email:</label>
                           <InputApp placeHolder="" />
                       </div>
-                      <div className="w-full mb-3 space-y-1">
+                      <div className="w-full mb-3 space-y-1 relative">
                           <label>Senha:</label>
-                          <InputApp placeHolder="" type="password" />
+                          <InputApp placeHolder="" type={showPassword ? "text" : "password"} />
+                          <button
+                                type="button"
+                                className="absolute right-4 bottom-1 transform -translate-y-1/2"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </button>
                       </div>
                       <div className="w-full mb-3 space-y-1">
                           <label>Capacidade:</label>
