@@ -4,7 +4,7 @@ import { ShelterHeader } from "../../components/ShelterHeader"
 export const ShelterProfile = () => {
     return (
         <div className="bg-custom-gradient w-screen h-screen overflow-scroll">
-        <ShelterHeader/>
+        <ShelterHeader page="profile"/>
         </div>
     )
 }
