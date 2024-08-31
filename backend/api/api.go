@@ -30,7 +30,7 @@ func Setup(router *gin.Engine, db *sql.DB) {
 	protected := v1.Group("/")
 	protected.Use(middleware.AuthMiddleware(jwtKey))
 
-	shelterController.Handler(protected, shelterService)
+	shelterController.Handler(v1, shelterService)
 
 	router.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{"message": "pong"})
