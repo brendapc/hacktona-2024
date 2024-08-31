@@ -38,10 +38,18 @@ function MyMap() {
     const fetchAndGeocodeAddresses = async () => {
       // Simulated fetch from backend
       const addresses = [
-        { id: 1, name: 'Local 1', address: 'Av. Ipiranga, 7060 - Partenon, Porto Alegre', color: 'yellow' },
-        { id: 2, name: 'Local 2', address: 'Av. Ipiranga, 6681 - Partenon, Porto Alegre', color: 'yellow' },
-        { id: 3, name: 'Local 3', address: 'Praça da Matriz, Porto Alegre, Brazil', color: 'yellow' }
+        { id: 1, name: 'Local 1', address: 'Av. Ipiranga, 7060 - Partenon, Porto Alegre', color: 'green' },
+        { id: 2, name: 'Local 2', address: 'Av. Ipiranga, 6681 - Partenon, Porto Alegre', color: 'green' },
+        { id: 3, name: 'Local 3', address: 'Praça da Matriz, Porto Alegre, Brazil', color: 'green' }
       ];
+
+      const companies = [
+        { id: 1, name: 'Local 1', address: 'Av. Ipiranga, 5060 - Partenon, Porto Alegre', color: 'orange' },
+        { id: 2, name: 'Local 2', address: 'Av. Ipiranga, 6581 - Partenon, Porto Alegre', color: 'orange' },
+        { id: 3, name: 'Local 3', address: 'Av. Ipiranga, 5500 - Partenon, Porto Alegre', color: 'orange' }
+      ];
+
+      addresses.push(...companies);
 
       try {
         const locationPromises = addresses.map(async (loc) => {
