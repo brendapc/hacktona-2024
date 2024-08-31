@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import Home from './pages/Home';
 import { LoginPage } from './pages/LoginPage';
-import { RegisterVolunteer } from './pages/registerVolunteer';
+// import CompanyRegister from './pages/CompanyRegisterScreen';
+// import ShelterRegister from './pages/ShelterRegisterScreen';
+import RegisterVolunteer from './pages/RegisterVolunteer';
 import Abrigos from './pages/Shelter';
 
 const App = () => {
