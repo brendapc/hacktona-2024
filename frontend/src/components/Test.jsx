@@ -37,8 +37,8 @@ function MyMap() {
     const fetchAndGeocodeAddresses = async () => {
       // Simulated fetch from backend
       const addresses = [
-        { id: 1, name: 'Local 1', address: ' Av. Ipiranga, 7060 - Partenon, Porto Alegre ', color: 'red' },
-        { id: 2, name: 'Local 2', address: ' Av. Ipiranga, 6681 - Partenon, Porto Alegre ', color: 'blue' },
+        { id: 1, name: 'Local 1', address: 'Av. Ipiranga, 7060 - Partenon, Porto Alegre', color: 'red' },
+        { id: 2, name: 'Local 2', address: 'Av. Ipiranga, 6681 - Partenon, Porto Alegre', color: 'blue' },
         { id: 3, name: 'Local 3', address: 'Praça da Matriz, Porto Alegre, Brazil', color: 'green' }
       ];
 
@@ -73,7 +73,13 @@ function MyMap() {
           icon={createCustomIcon(loc.color)}
         >
           <Popup>
-            {loc.name}
+            <div style={{ width: '200px', height: 'auto' }}>
+              <h3>{loc.name}</h3>
+              <p>{loc.address}</p>
+              <p>Click here for more details...</p>
+              <a href='abrigo-X' >go to </a>
+              {/* You can include more content here */}
+            </div>
           </Popup>
         </Marker>
       ))}
