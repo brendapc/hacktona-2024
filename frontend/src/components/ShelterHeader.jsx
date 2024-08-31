@@ -9,7 +9,7 @@ export const ShelterHeader = ({ page }) => {
                         >Minha conta</a>
                     </li>
                     <li className="p-2">
-                        <a className={`rounded-xl py-1 px-6 hover:bg-[#b0b0b0] focus:bg-[#a0a0a0] font-bold ${page === 'sheltered' ? 'bg-[#2929FF] text-white' : 'bg-[#c9c9c9]'}`} href="/cadastrar-abrigados">Cadastrar abrigados</a>
+                        <a className={`rounded-xl py-1 px-6 hover:bg-[#b0b0b0] focus:bg-[#a0a0a0] font-bold ${page === 'sheltered' ? 'bg-[#2929FF] text-white' : 'bg-[#c9c9c9]'}`} href="/cadastro-abrigados">Cadastrar abrigados</a>
                     </li>
                     <li className="p-2">
                         <a className={`rounded-xl py-1 px-6 hover:bg-[#b0b0b0] focus:bg-[#a0a0a0] font-bold ${page === 'volunteer-list' ? 'bg-[#2929FF] text-white' : 'bg-[#c9c9c9]'}`} href="/banco-de-voluntarios">Banco de voluntários</a>
