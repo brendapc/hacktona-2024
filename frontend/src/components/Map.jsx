@@ -70,7 +70,7 @@ function MyMap() {
   }, []);
 
   return (
-    <MapContainer center={userLocation || [-30.0586, -51.1756]} zoom={13} style={{ height: '90vh', width: '100%' }}>
+    <MapContainer center={userLocation || [-30.0586, -51.1756]} zoom={13} style={{ height: '89vh', width: '100%' }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
