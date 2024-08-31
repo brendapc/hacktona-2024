@@ -44,7 +44,7 @@ export const HomeHeader = () => {
           </a>
         </div>
       </header>
-      <div className="flex items-center bg-white min-h-16 overflow-x-scroll text-nowrap">
+      <div className="flex mb-7 items-center bg-white min-h-16 overflow-x-scroll text-nowrap">
         <div className="flex bg-gray-100 rounded-md p-2 mx-2">
           <div className="flex items-center mr-2">
             <span className="h-3 w-3 bg-green-700 rounded-md block mr-1"></span>
