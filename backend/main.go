@@ -17,12 +17,14 @@ func main() {
 
 	r.Use(middleware.CORSMiddleware())
 
-	myApp := api.NewApp(db)
+	api.Setup(r, db)
 
 	port := os.Getenv("API_PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	api.RunServer(port, myApp)
+	if err := r.Run(":" + port); err != nil {
+		panic(err)
+	}
 }
