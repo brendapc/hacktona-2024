@@ -42,7 +42,8 @@ export default function CompanyRegister() {
                         </div>
                         <div className="w-full mb-3 space-y-1">
                             <label>Senha:</label>
-                            <InputApp onChangeText={SetPassword}/>
+                            <InputApp onChangeText={SetPassword}
+                            type="password"/>
                         </div>
                     </div>
                 </div>

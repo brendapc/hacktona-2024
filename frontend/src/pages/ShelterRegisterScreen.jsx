@@ -44,7 +44,7 @@ export default function ShelterRegister() {
                       </div>
                       <div className="w-full mb-3 space-y-1">
                           <label>Senha:</label>
-                          <InputApp placeHolder="" />
+                          <InputApp placeHolder="" type="password" />
                       </div>
                       <div className="w-full mb-3 space-y-1">
                           <label>Capacidade:</label>

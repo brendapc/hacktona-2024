@@ -16,7 +16,7 @@ export const LoginPage = () => {
           </div>
 
           <div className="w-full mb-32">
-            <InputApp placeHolder="Senha" onChangeText={setPassword}/>
+            <InputApp placeHolder="Senha" type="password" onChangeText={setPassword} />
           </div>
 
           <div className="flex justify-center">
