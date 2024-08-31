@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import Home from './pages/Home';
 import { LoginPage } from './pages/LoginPage';
-import Abrigos from './pages/Abrigos';
+import Abrigos from './pages/Shelter';
 
 const App = () => {
   return (
