@@ -52,6 +52,62 @@ func (c *ShelterController) GetShelters(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, shelterPresenters)
 }
 
+func (c *ShelterController) AddResident(ctx *gin.Context) {
+	shelterID := ctx.Request.Header.Get("shelter_id")
+
+	var resident *models.ShelterResident
+	if err := ctx.BindJSON(&resident); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	shelterIDInt, _ := strconv.Atoi(shelterID)
+
+	shelter, err := c.shelterService.GetShelter(ctx, shelterIDInt)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	resident.ShelterID = shelter.ID
+
+	resident, err = c.shelterService.AddResident(ctx, shelter, resident)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusCreated, resident)
+}
+
+func (c *ShelterController) RemoveResident(ctx *gin.Context) {
+	shelterID := ctx.Request.Header.Get("shelter_id")
+
+	var resident *models.ShelterResident
+	if err := ctx.BindJSON(&resident); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	shelterIDInt, _ := strconv.Atoi(shelterID)
+
+	shelter, err := c.shelterService.GetShelter(ctx, shelterIDInt)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	resident.ShelterID = shelter.ID
+
+	resident, err = c.shelterService.RemoveResident(ctx, shelter, resident)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusCreated, resident)
+}
+
 func (c *ShelterController) GetShelter(ctx *gin.Context) {
 	id := ctx.Param("id")
 	idInt, _ := strconv.Atoi(id)
@@ -76,6 +132,8 @@ func Handler(router *gin.RouterGroup, shelterService service.ShelterService) *Sh
 	router.POST("/shelters", controller.CreateShelter)
 	router.GET("/shelters", controller.GetShelters)
 	router.GET("/shelters/:id", controller.GetShelter)
+	router.POST("/shelters/residents", controller.AddResident)
+	router.DELETE("/shelters/residents", controller.RemoveResident)
 
 	return controller
 }
