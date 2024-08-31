@@ -19,6 +19,15 @@ type ShelterService struct {
 
 type ShelterServiceInterface interface {
 	CreateShelter(ctx context.Context, shelter *models.Shelter) error
+	CreateShelterNeed(ctx context.Context, shelter *models.Shelter, shelterNeed *models.ShelterNeed) (*models.ShelterNeed, error)
+	FindShelterNeedByShelterID(ctx context.Context, shelterID int) (*models.ShelterNeed, error)
+	UpdateShelterNeeds(ctx context.Context, shelterNeed *models.ShelterNeed) (*models.ShelterNeed, error)
+	GetShelters(ctx context.Context) ([]*models.Shelter, error)
+	GetShelter(ctx context.Context, id int) (*models.Shelter, error)
+	GetAllResidents(ctx context.Context, shelter *models.Shelter) ([]*models.ShelterResident, error)
+	AddResident(ctx context.Context, shelter *models.Shelter, resident *models.ShelterResident) (*models.ShelterResident, error)
+	RemoveResident(ctx context.Context, shelter *models.Shelter, resident *models.ShelterResident) (*models.ShelterResident, error)
+	FindSheltersByNeed(ctx context.Context, item string) ([]*models.Shelter, error)
 }
 
 func NewService(db *sql.DB) ShelterService {
