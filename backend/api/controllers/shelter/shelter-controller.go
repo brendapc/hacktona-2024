@@ -1,6 +1,7 @@
 package shelterController
 
 import (
+	"fmt"
 	shelterModels "hack/api/controllers/shelter/models"
 	"hack/core/models"
 	service "hack/core/services/shelter"
@@ -42,9 +43,30 @@ func (c *ShelterController) CreateShelter(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, shelterPresenter)
 }
 
+func (c *ShelterController) GetSheltersByNeed(ctx *gin.Context) {
+	searchItem := ctx.Query("search")
+
+	if searchItem == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Search query is required"})
+		return
+	}
+
+	// Debug: Verificar o valor do searchItem
+	println("Item de busca:", searchItem)
+
+	shelters, err := c.shelterService.FindSheltersByNeed(ctx, searchItem)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, shelters)
+}
+
 func (c *ShelterController) UpdateShelterNeeds(ctx *gin.Context) {
 	shelterID := ctx.Request.Header.Get("shelter_id")
 	shelterIDInt, _ := strconv.Atoi(shelterID)
+	fmt.Println(shelterIDInt)
 
 	var shelterNeeds *models.ShelterNeed
 
@@ -54,11 +76,13 @@ func (c *ShelterController) UpdateShelterNeeds(ctx *gin.Context) {
 		return
 	}
 
+	fmt.Println("needs", shelterNeeds)
 	if err := ctx.BindJSON(&shelterNeeds); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
+	fmt.Println("needs2", shelterNeeds)
 	shelterNeeds, err = c.shelterService.UpdateShelterNeeds(ctx, shelterNeeds)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -169,6 +193,7 @@ func Handler(router *gin.RouterGroup, shelterService service.ShelterService) *Sh
 	router.POST("/shelters/residents", controller.AddResident)
 	router.DELETE("/shelters/residents", controller.RemoveResident)
 	router.PUT("/shelters/needs", controller.UpdateShelterNeeds)
+	router.GET("/shelters/needs", controller.GetSheltersByNeed)
 
 	return controller
 }

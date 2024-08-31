@@ -3,11 +3,13 @@ package shelter
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"hack/core/models"
 
 	"log"
 
 	"github.com/volatiletech/sqlboiler/v4/boil"
+	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -52,12 +54,13 @@ func (s *ShelterService) CreateShelterNeed(ctx context.Context, shelter *models.
 }
 
 func (s *ShelterService) FindShelterNeedByShelterID(ctx context.Context, shelterID int) (*models.ShelterNeed, error) {
-	shelterNeed, err := models.FindShelterNeed(ctx, s.db, shelterID)
+	shelterNeed, err := models.ShelterNeeds(qm.Where("shelter_id = ?", shelterID)).One(ctx, s.db)
 	if err != nil {
 		log.Printf("Error fetching shelter need from database: %v", err)
 		return nil, err
 	}
 	return shelterNeed, nil
+
 }
 
 func (s *ShelterService) UpdateShelterNeeds(ctx context.Context, shelterNeed *models.ShelterNeed) (*models.ShelterNeed, error) {
@@ -121,4 +124,39 @@ func (s *ShelterService) RemoveResident(ctx context.Context, shelter *models.She
 	}
 
 	return resident, nil
+}
+
+func (s *ShelterService) FindSheltersByNeed(ctx context.Context, item string) ([]*models.Shelter, error) {
+	validColumns := map[string]string{
+		"bedding_item":        models.ShelterNeedColumns.BeddingItem,
+		"food_non_perishable": models.ShelterNeedColumns.FoodNonPerishable,
+		"food_perishable":     models.ShelterNeedColumns.FoodPerishable,
+		"hygiene_products":    models.ShelterNeedColumns.HygieneProducts,
+		"clothing_male":       models.ShelterNeedColumns.ClothingMale,
+		"clothing_female":     models.ShelterNeedColumns.ClothingFemale,
+		"clothing_children":   models.ShelterNeedColumns.ClothingChildren,
+		"medical_supplies":    models.ShelterNeedColumns.MedicalSupplies,
+		"pet_food_dogs":       models.ShelterNeedColumns.PetFoodDogs,
+		"pet_food_cats":       models.ShelterNeedColumns.PetFoodCats,
+		"cleaning_supplies":   models.ShelterNeedColumns.CleaningSupplies,
+	}
+
+	column, ok := validColumns[item]
+	if !ok {
+		return nil, errors.New("invalid search item")
+	}
+
+	println("Filtrando pela coluna:", column)
+
+	shelters, err := models.Shelters(
+		qm.InnerJoin("shelter_needs ON shelter.id = shelter_needs.shelter_id"),
+		qm.Where(column+" = ?", true),
+	).All(ctx, s.db)
+	if err != nil {
+		return nil, err
+	}
+
+	println("Número de abrigos encontrados:", len(shelters))
+
+	return shelters, nil
 }
