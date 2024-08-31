@@ -7,7 +7,7 @@ export const LoginPage = () => {
       <div className="w-full max-w-lg p-16 space-y-14 bg-[#F5F9E9] rounded-2xl shadow-lg">
         <h2 className="text-3xl font-bold text-center text-black">Login</h2>
         
-        <form className="flex flex-col items-center w-full">
+        <form className="flex flex-col w-full">
           <div className="w-full mb-6 mt-4">
             <InputApp placeHolder="Digite seu e-mail" />
           </div>
