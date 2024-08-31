@@ -51,9 +51,6 @@ func (c *ShelterController) GetSheltersByNeed(ctx *gin.Context) {
 		return
 	}
 
-	// Debug: Verificar o valor do searchItem
-	println("Item de busca:", searchItem)
-
 	shelters, err := c.shelterService.FindSheltersByNeed(ctx, searchItem)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -182,6 +179,26 @@ func (c *ShelterController) GetShelter(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, shelterPresenter)
 }
 
+func (c *ShelterController) GetAllResidents(ctx *gin.Context) {
+	shelterID := ctx.Request.Header.Get("shelter_id")
+	shelterIDInt, _ := strconv.Atoi(shelterID)
+
+	shelter, err := c.shelterService.GetShelter(ctx, shelterIDInt)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	residents, err := c.shelterService.GetAllResidents(ctx, shelter)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, residents)
+
+}
+
 func Handler(router *gin.RouterGroup, shelterService service.ShelterService) *ShelterController {
 	controller := &ShelterController{
 		shelterService: shelterService,
@@ -194,6 +211,7 @@ func Handler(router *gin.RouterGroup, shelterService service.ShelterService) *Sh
 	router.DELETE("/shelters/residents", controller.RemoveResident)
 	router.PUT("/shelters/needs", controller.UpdateShelterNeeds)
 	router.GET("/shelters/needs", controller.GetSheltersByNeed)
+	router.GET("/shelters/residents", controller.GetAllResidents)
 
 	return controller
 }

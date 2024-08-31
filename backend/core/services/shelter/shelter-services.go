@@ -90,6 +90,15 @@ func (s *ShelterService) GetShelter(ctx context.Context, id int) (*models.Shelte
 	return shelter, nil
 }
 
+func (s *ShelterService) GetAllResidents(ctx context.Context, shelter *models.Shelter) ([]*models.ShelterResident, error) {
+	residents, err := shelter.ShelterResidents().All(ctx, s.db)
+	if err != nil {
+		log.Printf("Error fetching residents from database: %v", err)
+		return nil, err
+	}
+	return residents, nil
+}
+
 func (s *ShelterService) AddResident(ctx context.Context, shelter *models.Shelter, resident *models.ShelterResident) (*models.ShelterResident, error) {
 	err := resident.Insert(ctx, s.db, boil.Infer())
 	if err != nil {
@@ -146,8 +155,6 @@ func (s *ShelterService) FindSheltersByNeed(ctx context.Context, item string) ([
 		return nil, errors.New("invalid search item")
 	}
 
-	println("Filtrando pela coluna:", column)
-
 	shelters, err := models.Shelters(
 		qm.InnerJoin("shelter_needs ON shelter.id = shelter_needs.shelter_id"),
 		qm.Where(column+" = ?", true),
@@ -155,8 +162,6 @@ func (s *ShelterService) FindSheltersByNeed(ctx context.Context, item string) ([
 	if err != nil {
 		return nil, err
 	}
-
-	println("Número de abrigos encontrados:", len(shelters))
 
 	return shelters, nil
 }
