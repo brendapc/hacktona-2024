@@ -1,5 +1,8 @@
 import { CardButtonComponent } from '../components/CardButtonComponent';
 import { useNavigate } from 'react-router-dom';
+import image1 from '../assets/image_1.png';
+import image2 from '../assets/image_2.png';
+import card_abrigo from '../assets/card-abrigo.png';
 
 export const RegisterScreen = () => {
   const navigate = useNavigate();
@@ -11,17 +14,17 @@ export const RegisterScreen = () => {
         <CardButtonComponent 
           onClick={() => navigate('/registerVolunteer')} 
           title='Voluntário' 
-          image='https://images03.brasildefato.com.br/ba2b3042aea1c53aeb6429a7e63a0719.webp'
+          image={image1}
         />
         <CardButtonComponent 
           onClick={() => navigate('/CompanyRegister')} 
           title='Empresa' 
-          image='https://your-image-url.com/company.png'
+          image={card_abrigo}
         />
         <CardButtonComponent 
           onClick={() => navigate('/ShelterRegister')} 
           title='Abrigo' 
-          image='https://your-image-url.com/shelter.png'
+          image={image2}
         />
       </div>
     </div>

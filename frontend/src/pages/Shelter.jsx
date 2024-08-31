@@ -11,7 +11,7 @@ const Abrigos = () => {
       name: 'Abrigo Esperança',
       address: 'Avenida Ipiranga, 7090, Bairro Ipiranga',
       remainingSpots: 60,
-      needs: ['Roupa de cama', 'Alimento', 'Tar Ner'],
+      needs: ['Roupa de cama', 'Alimento', 'Mesas'],
       description: 'Descrição detalhada do abrigo, suas necessidades e outras informações importantes.'
     },
     {
@@ -23,22 +23,29 @@ const Abrigos = () => {
     },
     {
       name: 'Abrigo Novo Horizonte',
-      address: 'Rua São Pedro, 456, Vila Nova',
+      address: 'Av. Bento Gonçalves, 1515 - Partenon, Porto Alegre',
       remainingSpots: 30,
       needs: ['Alimentos', 'Produtos de limpeza', 'Fraldas'],
       description: 'Abrigo que oferece assistência a famílias em situação de vulnerabilidade com uma abordagem centrada na comunidade.'
     },
     {
-      name: 'Abrigo Esperança do Futuro',
-      address: 'Avenida Paulista, 987, Bela Vista',
-      remainingSpots: 25,
-      needs: ['Roupas', 'Medicamentos', 'Materiais escolares'],
+      name: 'Abrigo Colis',
+      address: 'Rua Leopoldo Fróes, 61 - Floresta, Porto Alegre',
+      remainingSpots: 5,
+      needs: ['Roupas', 'Medicamentos', 'Materiais escolares', 'Gerador'],
+      description: 'Abrigo que apoia pessoas em situação de rua e suas famílias, oferecendo uma variedade de serviços e suporte educacional.'
+    },
+    {
+      name: 'Abrigo Bots',
+      address: 'Rua Botafogo, 1354 - Azenha, Porto Alegre',
+      remainingSpots: 8,
+      needs: ['Alimentos', 'Medicamentos', 'Escova de dente', 'Cama'],
       description: 'Abrigo que apoia pessoas em situação de rua e suas famílias, oferecendo uma variedade de serviços e suporte educacional.'
     }
   ];
 
   return (
-    <div className='bg-custom-gradient h-screen w-screen overflow-scroll'>
+    <div className='pl-6 bg-custom-gradient h-screen w-screen overflow-scroll'>
       <h1 className='text-3xl font-bold ml-2 my-4 text-black'>Abrigos</h1>
       
 

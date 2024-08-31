@@ -80,7 +80,7 @@ export default function ShelterRegister() {
             </div>
             <div className="w-full mb-3 space-y-1">
               <label>Senha:</label>
-              <InputApp placeHolder="" onChangeText={setPassword} />
+              <InputApp placeHolder="" onChangeText={setPassword} type="password" />
             </div>
             <div className="w-full mb-3 space-y-1">
               <label>Capacidade:</label>
