@@ -2,7 +2,6 @@ package main
 
 import (
 	"hack/api"
-
 	"hack/infrastructure/database"
 	"os"
 )
