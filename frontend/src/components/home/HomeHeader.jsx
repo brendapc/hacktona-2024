@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Dropdown from '../Dropdown';
 
 export const HomeHeader = () => {
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
+  const [selectedA11yOption, setSelectedA11yOption] = useState("Select an option");
+  const [selectedHelpOption, setSelectedHelpOption] = useState("Select an option");
+  const [selectedSpotsOption, setSelectedSpotsOption] = useState("Select an option");
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -12,7 +16,8 @@ export const HomeHeader = () => {
   };
 
   return (
-    <header className="flex justify-between items-center h-16 p-4 backdrop-blur-md bg-white/70 shadow-md fixed w-full z-10">
+    <>
+    <header className="flex justify-between items-center h-16 p-4 backdrop-blur-md bg-white/70 shadow-md w-full z-10">
       <div className="flex items-center">
         <span className="rounded-full p-2 bg-blue-500 text-white shadow-md">
           icon
@@ -38,5 +43,32 @@ export const HomeHeader = () => {
         </a>
       </div>
     </header>
+    <div className='flex items-center bg-white h-10' >
+      <div className='flex items-center mr-2'>
+        <span> Acessibilidade: </span>
+        <Dropdown 
+          options={["tanto faz", "é acessivel"]} 
+          selectedOption={selectedA11yOption} 
+          setSelectedOption={setSelectedA11yOption} 
+        />
+      </div>
+       <div className='flex items-center mr-2'>
+        <span> Precisa de voluntarios de: </span>
+        <Dropdown 
+          options={["ajuda geral", "psicologia", "medicina", "enfermagem", "nutrição", "transporte", "veterinario", "outros"]} 
+          selectedOption={selectedHelpOption} 
+          setSelectedOption={setSelectedHelpOption} 
+        />
+      </div>
+       <div className='flex items-center mr-2'>
+        <span> Capacidade: </span>
+        <Dropdown 
+          options={["todos", "com vagas"]} 
+          selectedOption={selectedSpotsOption} 
+          setSelectedOption={setSelectedSpotsOption} 
+        />
+      </div>
+    </div>
+    </>
   );
 };
