@@ -52,7 +52,7 @@ function MyMap() {
         const locationPromises = shelters.map(async (loc) => {
           const coords = await geocodeAddress(loc.address);
           if (coords) {
-            return { id: loc.id, name: loc.name, address: loc.address, ...coords, color: loc.color };
+            return { id: loc.id, name: loc.name, address: loc.address, ...coords, color: loc.color, capacity: loc.capacity, current_occupancy: loc.current_occupancy};
           }
           return null;
         });
@@ -90,8 +90,7 @@ function MyMap() {
             <div style={{ width: '200px', height: 'auto' }}>
               <h3>{loc.name}</h3>
               <p>{loc.address}</p>
-              <p>Click here for more details...</p>
-              <a href='abrigo-X'>go to</a>
+              <p>Vagas restantes: {loc.capacity-loc.current_occupancy}</p>
               {/* You can include more content here */}
             </div>
           </Popup>

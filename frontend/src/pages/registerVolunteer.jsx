@@ -20,7 +20,7 @@ export const RegisterVolunteer = () => {
           </div>
 
           <div className="w-full mb-6">
-            <InputApp placeHolder="Digite sua senha" />
+            <InputApp placeHolder="Digite sua senha" type="password"/>
           </div>
 
           <div className="w-full mb-32 relative">
