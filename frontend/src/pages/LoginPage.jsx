@@ -1,7 +1,10 @@
 import InputApp from "../components/input/input";
 import ButtonComponent from "../components/ButtonComponent";
+import { useState } from "react";
 
 export const LoginPage = () => {
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
   return (
     <div className="flex items-center justify-center min-h-screen bg-custom-gradient">
       <div className="w-full max-w-lg p-16 space-y-14 bg-[#F5F9E9] rounded-2xl shadow-lg">
@@ -9,11 +12,11 @@ export const LoginPage = () => {
         
         <form className="flex flex-col w-full">
           <div className="w-full mb-6 mt-4">
-            <InputApp placeHolder="Digite seu e-mail" />
+            <InputApp placeHolder="Email" onChangeText={setEmail}  />
           </div>
 
           <div className="w-full mb-32">
-            <InputApp placeHolder="Digite sua senha" />
+            <InputApp placeHolder="Senha" onChangeText={setPassword}/>
           </div>
 
           <div className="flex justify-center">
