@@ -59,3 +59,39 @@ func (s *ShelterService) GetShelter(ctx context.Context, id int) (*models.Shelte
 	}
 	return shelter, nil
 }
+
+func (s *ShelterService) AddResident(ctx context.Context, shelter *models.Shelter, resident *models.ShelterResident) (*models.ShelterResident, error) {
+	err := resident.Insert(ctx, s.db, boil.Infer())
+	if err != nil {
+		log.Printf("Error inserting resident into database: %v", err)
+		return nil, err
+	}
+
+	shelter.CurrentOccupancy++
+
+	_, err = shelter.Update(ctx, s.db, boil.Infer())
+	if err != nil {
+		log.Printf("Error updating shelter occupancy: %v", err)
+		return nil, err
+	}
+
+	return resident, nil
+}
+
+func (s *ShelterService) RemoveResident(ctx context.Context, shelter *models.Shelter, resident *models.ShelterResident) (*models.ShelterResident, error) {
+	_, err := resident.Delete(ctx, s.db)
+	if err != nil {
+		log.Printf("Error deleting resident from database: %v", err)
+		return nil, err
+	}
+
+	shelter.CurrentOccupancy--
+
+	_, err = shelter.Update(ctx, s.db, boil.Infer())
+	if err != nil {
+		log.Printf("Error updating shelter occupancy: %v", err)
+		return nil, err
+	}
+
+	return resident, nil
+}
