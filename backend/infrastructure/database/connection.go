@@ -1,4 +1,4 @@
-package initializerDB
+package database
 
 import (
 	"database/sql"
