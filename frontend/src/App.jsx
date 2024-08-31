@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import Home from './pages/Home';
-import { LoginPage } from './pages/LoginPage';
+// import { LoginPage } from './pages/LoginPage';
 // import CompanyRegister from './pages/CompanyRegisterScreen';
 // import ShelterRegister from './pages/ShelterRegisterScreen';
-import RegisterVolunteer from './pages/RegisterVolunteer';
+// import RegisterVolunteer from './pages/RegisterVolunteer';
+import { RegisterScreen } from './pages/RegisterScreen';
 import Abrigos from './pages/Shelter';
 
 const App = () => {
@@ -12,8 +13,8 @@ const App = () => {
       <div>
         <Routes>
           <Route path="/" exact element={<Home/>} />
-          <Route path="/login" element={<LoginPage/>} />
-          <Route path="/registerVolunteer" element={<RegisterVolunteer />} />
+          <Route path="/login" element={<RegisterScreen/>} />
+          {/* <Route path="/registerVolunteer" element={<RegisterVolunteer />} /> */}
           <Route path="/abrigos" element={<Abrigos />} />
         </Routes>
       </div>
