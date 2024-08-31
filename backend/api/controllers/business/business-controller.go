@@ -44,6 +44,7 @@ func Handler(router *gin.RouterGroup, businessService service.BusinessService) *
 	}
 
 	router.POST("/business", controller.CreateBusiness)
+	router.GET("/business", controller.GetBusinesses)
 
 	return controller
 }
