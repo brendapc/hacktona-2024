@@ -9,8 +9,7 @@ export const RegisterVolunteer = () => {
   const [password, setPassword] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const [errors, setErrors] = useState({}); // Estado para armazenar os erros
+  const [errors, setErrors] = useState({});
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -28,14 +27,13 @@ export const RegisterVolunteer = () => {
     if (!selectedOption) newErrors.selectedOption = "Por favor, selecione uma opção.";
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Retorna true se não houver erros
+    return Object.keys(newErrors).length === 0; 
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevenir o comportamento padrão de envio do formulário
+    event.preventDefault(); 
     if (validateForm()) {
-      console.log("Formulário enviado com sucesso!");
-      // Adicione aqui o código para enviar os dados ao backend
+      console.log("Sucesso!");
     }
   };
 
@@ -45,7 +43,7 @@ export const RegisterVolunteer = () => {
         <h2 className="text-3xl font-bold text-center text-black">Cadastre-se como voluntário</h2>
         
         <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-          {/* Campo de Nome */}
+
           <div className="w-full mb-4">
             <InputApp 
               placeHolder="Digite seu nome" 
@@ -55,7 +53,6 @@ export const RegisterVolunteer = () => {
             {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
           </div>
 
-          {/* Campo de Email */}
           <div className="w-full mb-4">
             <InputApp 
               type="email" 
@@ -66,25 +63,23 @@ export const RegisterVolunteer = () => {
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
 
-          {/* Campo de Senha */}
           <div className="w-full mb-4 relative">
             <InputApp 
-              type={showPassword ? "text" : "password"} // Define o tipo como password para esconder o texto digitado
+              type={showPassword ? "text" : "password"} 
               placeHolder="Digite sua senha" 
               value={password} 
               onChangeText={setPassword} 
             />
              <button
               type="button"
-              className="absolute right-4 top-1/2 transform -translate-y-1/2"
-              onClick={() => setShowPassword(!showPassword)} // Alterna o estado da visibilidade
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 flex-row-reverse"
+              onClick={() => setShowPassword(!showPassword)} 
             >
-              {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Ícones para mostrar/ocultar senha */}
+              {showPassword ? <FaEyeSlash /> : <FaEye />} 
             </button>
             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
 
-          {/* Dropdown de Seleção */}
           <div className="w-full mb-16">
             <select 
               className="w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-md shadow-lg appearance-none focus:outline-none focus:ring-2 focus:ring-[#74D480]"
@@ -111,13 +106,11 @@ export const RegisterVolunteer = () => {
             {errors.selectedOption && <p className="text-red-500 text-sm mt-1">{errors.selectedOption}</p>}
           </div>
 
-          {/* Botão de Envio */}
           <div className="flex justify-center">
             <ButtonComponent label="Cadastrar" type="submit" />
           </div>
         </form>
 
-        {/* Link para Login */}
         <div className="flex flex-col items-center text-center">
           <p className="text-sm mb-2 text-gray-600">
             Já possui uma conta?
