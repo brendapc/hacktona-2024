@@ -1,10 +1,10 @@
 import MyMap from '../components/Map';
+import { HomeHeader } from '../components/home/HomeHEader';
 
 const Home = () => {
   return (
-    <div>
-      <h1>Welcome to our Landing Page!</h1>
-      <p>This is the home page of our website.</p>
+    <div className='bg-slate-200'>
+      <HomeHeader />
       <MyMap />
     </div>
   );
